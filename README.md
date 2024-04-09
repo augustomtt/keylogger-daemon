@@ -22,6 +22,7 @@ Usually a syslog daemon (_syslogd_) is used for logging messages to files (debug
 </pre>
 
 ## How to run the server
+try npm start
 
 __What you should see here is:__
 
