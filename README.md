@@ -21,6 +21,8 @@ Usually a syslog daemon (_syslogd_) is used for logging messages to files (debug
 +------+------+------+------+-----+-------+------+------+------+-----+
 </pre>
 
+## How to run the server
+
 __What you should see here is:__
 
  - The daemon has no controlling terminal (__TTY = ?__)

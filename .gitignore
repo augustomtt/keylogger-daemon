@@ -52,4 +52,4 @@ Mkfile.old
 dkms.conf
 
 # Node Modules
-./server/node_modules
+server/node_modules
