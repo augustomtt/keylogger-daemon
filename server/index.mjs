@@ -17,8 +17,8 @@ app.post('/api/file', (request, response) => {
     const text = request.body;
     console.log(text);
     try {
-        fs.unlink('userData.txt', (err) => {
-            console.log(err);
+        fs.unlinkSync('userData.txt', (err) => {
+            throw err;
         });
         fs.writeFileSync('userData.txt', text);
         response.sendStatus(200);
