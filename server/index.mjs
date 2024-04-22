@@ -18,9 +18,9 @@ app.post('/api/file', (request, response) => {
     console.log(text);
     try {
         fs.writeFileSync('userData.txt', text);
-        response.status(200);
+        response.sendStatus(200);
     } catch (err) {
         console.error(err)
-        response.status(500);
+        response.sendStatus(500);
     }
 });
