@@ -11,7 +11,7 @@ Keystroke logging, often referred to as keylogging or keyboard capturing, is the
 
 ## Compile and run
  - Compile the code: `gcc daemon-keylogger.c -o keylogger`
- - Start the daemon: `./keylogger`
+ - Start the daemon: `sudo ./keylogger`
  - Check if everything is working properly: `ps -xj | grep keylogger`
  - A simplified way to check if it's running without using grep is `ps -e`, the process may be found at the bottom of the results
 
@@ -40,7 +40,7 @@ __Reading the syslog:__
  - You may find a line `"Keylogger working correctly"` 
 
 ## How to start the keylogger daemon
-- After compiling the code, run it using `./keylogger`
+- After compiling the code, run it using `sudo ./keylogger`
 - All your keystrokes will be logged to a .txt file in the same directory.
 - After a specific amount of keystrokes (configurable) an HTTP request will be sent to a local running server.
 
